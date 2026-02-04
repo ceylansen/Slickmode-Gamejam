@@ -5,7 +5,6 @@ extends CharacterBody2D
 @export var floor_move_time := 0.15
 @export var ice_move_time := 0.1
 @export var push_mode := false
-@export var GameState : MoveSnapshot
 
 var curr_pos: Vector2i
 var is_moving := false
@@ -21,7 +20,6 @@ var current_surface := "floor"
 func _ready():
 	curr_pos = tiles.local_to_map(global_position)
 	global_position = tiles.map_to_local(curr_pos)
-	GameState = get_tree().get_nodes_in_group("moves")[0]
 
 func _physics_process(_delta) -> void:
 	if is_moving:
@@ -44,6 +42,10 @@ func _physics_process(_delta) -> void:
 		consumed_dir = input_dir
 	else:
 		try_move(input_dir)
+
+func _input(event):
+	if event.is_action_pressed("undo"):
+		undo()
 
 
 func update_input_dir():
@@ -98,6 +100,9 @@ func force_idle():
 
 func try_move(dir: Vector2i):
 	var next_tile := curr_pos + dir
+	if can_record_snapshot():
+		record_snapshot()
+
 
 	var rock = get_rock_at(next_tile)
 	if rock:
@@ -110,7 +115,7 @@ func try_move(dir: Vector2i):
 		return
 
 	move_to_tile(next_tile)
-
+	
 	if get_tile_type(next_tile) == "ice":
 		start_slide(dir)
 
@@ -135,6 +140,8 @@ func push_all_rocks(dir: Vector2i):
 			pushed_any = true
 
 	if pushed_any:
+		if can_record_snapshot():
+			record_snapshot()
 		play_push_animation(dir)
 
 
@@ -218,25 +225,45 @@ func get_tile_type(tile_pos: Vector2i) -> String:
 	return tile_data.get_custom_data("type")
 
 func record_snapshot():
-	var snap = MoveSnapshot.new()
-	snap.player_pos = curr_pos
+	var snap = {
+		"player_pos": curr_pos,
+		"push_mode": push_mode,
+		"facing_dir": facing_dir,
+		"rocks": []
+	}
 
 	for rock in get_tree().get_nodes_in_group("rocks"):
 		snap.rocks.append({
 			"id": rock.get_instance_id(),
 			"pos": rock.tile_pos,
-			"value": rock.value
+			"value": rock.value,
+			"active": rock.active
 		})
 
-	GameState.push_snapshot(snap)
+	Gamestate.push_snapshot(snap)
+
+
+func can_record_snapshot() -> bool:
+	return not is_sliding and not is_moving
+
 
 func undo():
-	var snap = GameState.pop_snapshot()
+	if is_sliding or is_moving:
+		return
+
+	var snap = Gamestate.pop_snapshot()
 	if snap == null:
 		return
 
+	is_moving = false
+	is_sliding = false
+	slide_dir = Vector2i.ZERO
+	push_cooldown = false
+
 	curr_pos = snap.player_pos
 	global_position = tiles.map_to_local(curr_pos)
+	push_mode = snap.push_mode
+	facing_dir = snap.facing_dir
 
 	for data in snap.rocks:
 		var rock = instance_from_id(data.id)
@@ -244,4 +271,6 @@ func undo():
 			rock.tile_pos = data.pos
 			rock.global_position = tiles.map_to_local(data.pos)
 			rock.value = data.value
+			rock.active = data.active
+			rock.show()
 			rock.update_sprite()

@@ -4,6 +4,8 @@ extends Node2D
 @export var slide_on_ice := false
 @export var move_time := 0.1
 @export var value := 1
+var active := true
+
 
 
 var tile_pos: Vector2i
@@ -16,6 +18,8 @@ func _ready():
 
 
 func can_move(dir: Vector2i) -> bool:
+	if !active:
+		return false
 	var next_tile := tile_pos + dir
 	var surface := get_tile_type(next_tile)
 	for rock in get_tree().get_nodes_in_group("rocks"):
@@ -86,8 +90,13 @@ func slide(dir: Vector2i):
 func merge_with(other):
 	value = min(value + other.value, 9)
 	other.merged(value)
-	queue_free()
+	active = false
+	hide()
+	tile_pos = Vector2i(-1000, -1000)
+	global_position = Vector2(-1000, -1000)
+
 	update_sprite()
+
 
 func merged(val):
 	value = val
@@ -96,7 +105,7 @@ func merged(val):
 
 func get_rock_at(tile: Vector2i):
 	for rock in get_tree().get_nodes_in_group("rocks"):
-		if rock.tile_pos == tile:
+		if rock.active and rock.tile_pos == tile:
 			return rock
 	return null
 
