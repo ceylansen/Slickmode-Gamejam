@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var tiles: TileMapLayer
+@onready var tiles: TileMapLayer
 @export var move_time := 0.2
 @export var floor_move_time := 0.15
 @export var ice_move_time := 0.1
@@ -18,6 +18,8 @@ var current_surface := "floor"
 
 
 func _ready():
+	print(get_tree().get_nodes_in_group("tiles"))
+	tiles = get_tree().get_first_node_in_group("tiles")
 	curr_pos = tiles.local_to_map(global_position)
 	global_position = tiles.map_to_local(curr_pos)
 
@@ -152,6 +154,10 @@ func distance_along_dir(pos: Vector2i, dir: Vector2i) -> int:
 	else:
 		return pos.y * dir.y
 
+func default_facing() -> void:
+	var anim = dir_to_name(facing_dir)
+	$AnimatedSprite2D.play(anim)
+
 func play_push_animation(dir: Vector2i):
 	facing_dir = dir
 	var anim := dir_to_name(dir) + "push"
@@ -264,6 +270,7 @@ func undo():
 	global_position = tiles.map_to_local(curr_pos)
 	push_mode = snap.push_mode
 	facing_dir = snap.facing_dir
+	default_facing()
 
 	for data in snap.rocks:
 		var rock = instance_from_id(data.id)

@@ -29,6 +29,8 @@ rocks=""
 finish=""
 main=""
 moves=""
+tiles=""
+player=""
 
 [input]
 

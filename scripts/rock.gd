@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var tiles: TileMapLayer
+@onready var tiles: TileMapLayer
 @export var slide_on_ice := false
 @export var move_time := 0.1
 @export var value := 1
@@ -12,9 +12,10 @@ var tile_pos: Vector2i
 var is_moving := false
 
 func _ready():
+	tiles = get_tree().get_first_node_in_group("tiles")
+	add_to_group("rocks")
 	tile_pos = tiles.local_to_map(global_position)
 	global_position = tiles.map_to_local(tile_pos)
-	add_to_group("rocks")
 
 
 func can_move(dir: Vector2i) -> bool:
