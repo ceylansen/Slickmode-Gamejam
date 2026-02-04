@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cybpvwrovbuwd"]
+
+[ext_resource type="Script" uid="uid://qan8hxnt3l06" path="res://scripts/real_main.gd" id="1_yun4n"]
+
+[node name="RealMain" type="Node2D" groups=["main"]]
+script = ExtResource("1_yun4n")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Levels" type="Node2D" parent="."]

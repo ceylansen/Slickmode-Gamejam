@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var floor_move_time := 0.15
 @export var ice_move_time := 0.1
 @export var push_mode := false
+@export var GameState : MoveSnapshot
 
 var curr_pos: Vector2i
 var is_moving := false
@@ -20,6 +21,7 @@ var current_surface := "floor"
 func _ready():
 	curr_pos = tiles.local_to_map(global_position)
 	global_position = tiles.map_to_local(curr_pos)
+	GameState = get_tree().get_nodes_in_group("moves")[0]
 
 func _physics_process(_delta) -> void:
 	if is_moving:
@@ -209,9 +211,37 @@ func is_blocked(tile: Vector2i) -> bool:
 
 	return false
 
-
 func get_tile_type(tile_pos: Vector2i) -> String:
 	var tile_data := tiles.get_cell_tile_data(tile_pos)
 	if tile_data == null:
 		return "void"
 	return tile_data.get_custom_data("type")
+
+func record_snapshot():
+	var snap = MoveSnapshot.new()
+	snap.player_pos = curr_pos
+
+	for rock in get_tree().get_nodes_in_group("rocks"):
+		snap.rocks.append({
+			"id": rock.get_instance_id(),
+			"pos": rock.tile_pos,
+			"value": rock.value
+		})
+
+	GameState.push_snapshot(snap)
+
+func undo():
+	var snap = GameState.pop_snapshot()
+	if snap == null:
+		return
+
+	curr_pos = snap.player_pos
+	global_position = tiles.map_to_local(curr_pos)
+
+	for data in snap.rocks:
+		var rock = instance_from_id(data.id)
+		if rock:
+			rock.tile_pos = data.pos
+			rock.global_position = tiles.map_to_local(data.pos)
+			rock.value = data.value
+			rock.update_sprite()
