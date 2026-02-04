@@ -13,9 +13,7 @@ var slide_dir := Vector2i.ZERO
 var input_dir := Vector2i.ZERO
 var consumed_dir := Vector2i.ZERO
 var push_cooldown := false
-
-
-
+var facing_dir := Vector2i.DOWN
 var current_surface := "floor"
 
 
@@ -46,39 +44,65 @@ func _physics_process(_delta) -> void:
 		try_move(input_dir)
 
 
-
-
 func update_input_dir():
 	var new_dir := Vector2i.ZERO
 
 	if Input.is_action_pressed("left"):
 		new_dir = Vector2i.LEFT
-		$AnimatedSprite2D.frame = 3
 	elif Input.is_action_pressed("right"):
 		new_dir = Vector2i.RIGHT
-		$AnimatedSprite2D.frame = 2
 	elif Input.is_action_pressed("up"):
 		new_dir = Vector2i.UP
-		$AnimatedSprite2D.frame = 1
 	elif Input.is_action_pressed("down"):
 		new_dir = Vector2i.DOWN
-		$AnimatedSprite2D.frame = 0
+
+	if new_dir != Vector2i.ZERO:
+		facing_dir = new_dir
 
 	if new_dir != input_dir:
 		consumed_dir = Vector2i.ZERO
+
 	input_dir = new_dir
 
+func set_push_mode(mode : bool) -> void:
+	push_mode = mode
+
+
+func dir_to_name(dir: Vector2i) -> String:
+	if dir == Vector2i.DOWN:
+		return "down"
+	if dir == Vector2i.UP:
+		return "up"
+	if dir == Vector2i.LEFT:
+		return "left"
+	if dir == Vector2i.RIGHT:
+		return "right"
+	return "down"
+
+
+func play_walk():
+	var anim := dir_to_name(facing_dir) + "walk"
+	if $AnimatedSprite2D.animation != anim:
+		$AnimatedSprite2D.play(anim)
+	else:
+		if !$AnimatedSprite2D.is_playing():
+			$AnimatedSprite2D.play()
+
+func force_idle():
+	var anim := dir_to_name(facing_dir) + "walk"
+	$AnimatedSprite2D.play(anim)
+	$AnimatedSprite2D.frame = $AnimatedSprite2D.sprite_frames.get_frame_count(anim) - 1
+	$AnimatedSprite2D.stop()
 
 func try_move(dir: Vector2i):
 	var next_tile := curr_pos + dir
 
 	var rock = get_rock_at(next_tile)
 	if rock:
-		if rock.push(dir):
+		if rock.push(dir, push_mode):
 			consumed_dir = dir
+			play_push_animation(dir)
 		return
-
-
 
 	if is_blocked(next_tile):
 		return
@@ -101,12 +125,17 @@ func push_all_rocks(dir: Vector2i):
 	rocks.sort_custom(func(a, b):
 		return distance_along_dir(b.tile_pos, dir) < distance_along_dir(a.tile_pos, dir)
 	)
-	#var pushed_any := false
+
+	var pushed_any := false
 
 	for rock in rocks:
-		if rock.push(dir):
-			#pushed_any = true
-			pass
+		if rock.push(dir, push_mode):
+			pushed_any = true
+
+	if pushed_any:
+		play_push_animation(dir)
+
+
 
 func distance_along_dir(pos: Vector2i, dir: Vector2i) -> int:
 	if dir.x != 0:
@@ -115,19 +144,17 @@ func distance_along_dir(pos: Vector2i, dir: Vector2i) -> int:
 		return pos.y * dir.y
 
 func play_push_animation(dir: Vector2i):
-	pass
-	#if dir == Vector2i.LEFT:
-		#$Anim.play("push_left")
-	#elif dir == Vector2i.RIGHT:
-		#$Anim.play("push_right")
-	#elif dir == Vector2i.UP:
-		#$Anim.play("push_up")
-	#elif dir == Vector2i.DOWN:
-		#$Anim.play("push_down")
+	facing_dir = dir
+	var anim := dir_to_name(dir) + "push"
+	$AnimatedSprite2D.play(anim)
 
 func start_slide(dir: Vector2i):
 	is_sliding = true
 	slide_dir = dir
+	facing_dir = dir
+	play_walk()
+
+
 
 func continue_slide():
 	var next_tile := curr_pos + slide_dir
@@ -141,7 +168,6 @@ func continue_slide():
 	if get_tile_type(next_tile) != "ice":
 		stop_slide()
 
-
 func stop_slide():
 	is_sliding = false
 	slide_dir = Vector2i.ZERO
@@ -151,6 +177,9 @@ func move_to_tile(tile: Vector2i):
 	curr_pos = tile
 
 	current_surface = get_tile_type(tile)
+	
+	if current_surface == "floor":
+		play_walk()
 
 	var target_pos := tiles.map_to_local(tile)
 

@@ -28,15 +28,18 @@ func update_sprite():
 	$Sprite2D.frame = value - 1
 
 
-func push(dir: Vector2i):
+func push(dir: Vector2i, mode: bool):
 	if is_moving:
 		return false
 
 	var next_tile := tile_pos + dir
 	var other = get_rock_at(next_tile)
 	var finish = get_finish_at(next_tile)
+	if mode:
+		move_time = 0.05
+	else:
+		move_time = 0.1
 
-		
 	if other:
 		move_to_tile(next_tile)
 		merge_with(other)

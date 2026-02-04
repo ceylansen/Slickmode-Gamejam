@@ -75,6 +75,7 @@ animations = [{
 }]
 
 [node name="Rock" type="Node2D" groups=["rocks"]]
+z_index = 4
 script = ExtResource("1_1di36")
 slide_on_ice = true
 
