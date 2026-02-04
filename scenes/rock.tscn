@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://4nh072vwyj27"]
+
+[ext_resource type="Script" uid="uid://bo402jamp8hok" path="res://scripts/rock.gd" id="1_1di36"]
+[ext_resource type="Texture2D" uid="uid://c6ue6erlths1s" path="res://sprites/moverock.png" id="2_mek2u"]
+
+[node name="Rock" type="Node2D" groups=["rocks"]]
+script = ExtResource("1_1di36")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_mek2u")
