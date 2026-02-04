@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://b87hfj2gej7ed"]
+
+[ext_resource type="Texture2D" uid="uid://tb2arisx0opv" path="res://sprites/rockver2.png" id="1_wxawf"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1nrif"]
+texture = ExtResource("1_wxawf")
+0:0/0 = 0
+0:0/0/custom_data_0 = "rock"
+
+[sub_resource type="TileSet" id="TileSet_whig6"]
+custom_data_layer_0/name = "type"
+custom_data_layer_0/type = 4
+sources/0 = SubResource("TileSetAtlasSource_1nrif")
+
+[node name="Decotiles" type="TileMapLayer"]
+tile_set = SubResource("TileSet_whig6")

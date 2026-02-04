@@ -4,6 +4,7 @@ extends CharacterBody2D
 @export var move_time := 0.2
 @export var floor_move_time := 0.15
 @export var ice_move_time := 0.1
+@export var push_mode := false
 
 var curr_pos: Vector2i
 var is_moving := false
@@ -11,6 +12,8 @@ var is_sliding := false
 var slide_dir := Vector2i.ZERO
 var input_dir := Vector2i.ZERO
 var consumed_dir := Vector2i.ZERO
+var push_cooldown := false
+
 
 
 var current_surface := "floor"
@@ -36,7 +39,12 @@ func _physics_process(_delta) -> void:
 	if input_dir == consumed_dir:
 		return
 
-	try_move(input_dir)
+	if push_mode:
+		push_all_rocks(input_dir)
+		consumed_dir = input_dir
+	else:
+		try_move(input_dir)
+
 
 
 
@@ -80,7 +88,42 @@ func try_move(dir: Vector2i):
 	if get_tile_type(next_tile) == "ice":
 		start_slide(dir)
 
+func push_all_rocks(dir: Vector2i):
+	if push_cooldown:
+		return
 
+	push_cooldown = true
+	await get_tree().create_timer(0.15).timeout
+	push_cooldown = false
+
+	var rocks = get_tree().get_nodes_in_group("rocks")
+
+	rocks.sort_custom(func(a, b):
+		return distance_along_dir(b.tile_pos, dir) < distance_along_dir(a.tile_pos, dir)
+	)
+	#var pushed_any := false
+
+	for rock in rocks:
+		if rock.push(dir):
+			#pushed_any = true
+			pass
+
+func distance_along_dir(pos: Vector2i, dir: Vector2i) -> int:
+	if dir.x != 0:
+		return pos.x * dir.x
+	else:
+		return pos.y * dir.y
+
+func play_push_animation(dir: Vector2i):
+	pass
+	#if dir == Vector2i.LEFT:
+		#$Anim.play("push_left")
+	#elif dir == Vector2i.RIGHT:
+		#$Anim.play("push_right")
+	#elif dir == Vector2i.UP:
+		#$Anim.play("push_up")
+	#elif dir == Vector2i.DOWN:
+		#$Anim.play("push_down")
 
 func start_slide(dir: Vector2i):
 	is_sliding = true
@@ -126,7 +169,6 @@ func get_rock_at(tile: Vector2i):
 		if rock.tile_pos == tile:
 			return rock
 	return null
-
 
 func is_blocked(tile: Vector2i) -> bool:
 	var surface := get_tile_type(tile)

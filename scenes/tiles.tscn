@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://beq0traj2cmpb"]
 
 [ext_resource type="Texture2D" uid="uid://w46gj5ioco1o" path="res://sprites/ice.png" id="1_od8sr"]
-[ext_resource type="Texture2D" uid="uid://d17k8j8h38qts" path="res://sprites/rock.png" id="2_jhpg2"]
 [ext_resource type="Texture2D" uid="uid://dsugaae4mqss0" path="res://sprites/floor.png" id="3_jhpg2"]
+[ext_resource type="Texture2D" uid="uid://tb2arisx0opv" path="res://sprites/rockver2.png" id="4_i3m0d"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i3m0d"]
 resource_name = "ice"
@@ -10,18 +10,128 @@ texture = ExtResource("1_od8sr")
 0:0/0 = 0
 0:0/0/custom_data_0 = &"ice"
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p5lnq"]
-resource_name = "rock"
-texture = ExtResource("2_jhpg2")
-0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-0:0/0/custom_data_0 = &"rock"
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ddpu7"]
 resource_name = "floor"
 texture = ExtResource("3_jhpg2")
 0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/terrains_peering_bit/right_side = 0
+0:0/0/terrains_peering_bit/bottom_right_corner = 0
+0:0/0/terrains_peering_bit/bottom_side = 0
+0:0/0/terrains_peering_bit/bottom_left_corner = 0
+0:0/0/terrains_peering_bit/left_side = 0
+0:0/0/terrains_peering_bit/top_left_corner = 0
+0:0/0/terrains_peering_bit/top_side = 0
+0:0/0/terrains_peering_bit/top_right_corner = 0
 0:0/0/custom_data_0 = &"floor"
+2:0/0 = 0
+2:0/0/terrain_set = 0
+2:0/0/terrain = 0
+2:0/0/terrains_peering_bit/bottom_side = 0
+2:0/0/terrains_peering_bit/bottom_left_corner = 0
+2:0/0/terrains_peering_bit/left_side = 0
+2:0/0/custom_data_0 = &"floor"
+2:1/0 = 0
+2:1/0/terrain_set = 0
+2:1/0/terrain = 0
+2:1/0/terrains_peering_bit/left_side = 0
+2:1/0/terrains_peering_bit/top_left_corner = 0
+2:1/0/terrains_peering_bit/top_side = 0
+2:1/0/custom_data_0 = &"floor"
+0:2/0 = 0
+0:2/0/custom_data_0 = &"ice"
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/terrain = 0
+1:0/0/terrains_peering_bit/right_side = 0
+1:0/0/terrains_peering_bit/bottom_right_corner = 0
+1:0/0/terrains_peering_bit/bottom_side = 0
+1:0/0/custom_data_0 = &"floor"
+1:1/0 = 0
+1:1/0/terrain_set = 0
+1:1/0/terrain = 0
+1:1/0/terrains_peering_bit/right_side = 0
+1:1/0/terrains_peering_bit/top_side = 0
+1:1/0/terrains_peering_bit/top_right_corner = 0
+1:1/0/custom_data_0 = &"floor"
+1:2/0 = 0
+1:2/0/terrain_set = 0
+1:2/0/terrain = 0
+1:2/0/terrains_peering_bit/bottom_side = 0
+1:2/0/terrains_peering_bit/bottom_left_corner = 0
+1:2/0/terrains_peering_bit/left_side = 0
+1:2/0/terrains_peering_bit/top_left_corner = 0
+1:2/0/terrains_peering_bit/top_side = 0
+1:2/0/custom_data_0 = &"floor"
+0:3/0 = 0
+0:3/0/terrain_set = 0
+0:3/0/terrain = 0
+0:3/0/terrains_peering_bit/right_side = 0
+0:3/0/terrains_peering_bit/bottom_right_corner = 0
+0:3/0/terrains_peering_bit/bottom_side = 0
+0:3/0/terrains_peering_bit/top_side = 0
+0:3/0/terrains_peering_bit/top_right_corner = 0
+0:3/0/custom_data_0 = &"floor"
+2:3/0 = 0
+2:3/0/terrain_set = 0
+2:3/0/terrain = 0
+2:3/0/terrains_peering_bit/right_side = 0
+2:3/0/terrains_peering_bit/bottom_right_corner = 0
+2:3/0/terrains_peering_bit/bottom_side = 0
+2:3/0/terrains_peering_bit/bottom_left_corner = 0
+2:3/0/terrains_peering_bit/left_side = 0
+2:3/0/custom_data_0 = &"floor"
+3:3/0 = 0
+3:3/0/terrain_set = 0
+3:3/0/terrain = 0
+3:3/0/custom_data_0 = &"floor"
+3:2/0 = 0
+3:2/0/terrain_set = 0
+3:2/0/terrain = 0
+3:2/0/terrains_peering_bit/right_side = 0
+3:2/0/terrains_peering_bit/left_side = 0
+3:2/0/terrains_peering_bit/top_left_corner = 0
+3:2/0/terrains_peering_bit/top_side = 0
+3:2/0/terrains_peering_bit/top_right_corner = 0
+3:2/0/custom_data_0 = &"floor"
+1:3/0 = 0
+1:3/0/terrain_set = 0
+1:3/0/terrain = 0
+1:3/0/terrains_peering_bit/right_side = 0
+1:3/0/terrains_peering_bit/left_side = 0
+1:3/0/custom_data_0 = &"floor"
+2:2/0 = 0
+2:2/0/terrain_set = 0
+2:2/0/terrain = 0
+2:2/0/terrains_peering_bit/bottom_side = 0
+2:2/0/terrains_peering_bit/top_side = 0
+2:2/0/custom_data_0 = &"floor"
+4:0/0 = 0
+4:0/0/terrain_set = 0
+4:0/0/terrain = 0
+4:0/0/terrains_peering_bit/left_side = 0
+4:0/0/custom_data_0 = &"floor"
+4:1/0 = 0
+4:1/0/terrain_set = 0
+4:1/0/terrain = 0
+4:1/0/terrains_peering_bit/right_side = 0
+4:1/0/custom_data_0 = &"floor"
+4:2/0 = 0
+4:2/0/terrain_set = 0
+4:2/0/terrain = 0
+4:2/0/terrains_peering_bit/top_side = 0
+4:2/0/custom_data_0 = &"floor"
+4:3/0 = 0
+4:3/0/terrain_set = 0
+4:3/0/terrain = 0
+4:3/0/terrains_peering_bit/bottom_side = 0
+4:3/0/custom_data_0 = &"floor"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_exfrf"]
+resource_name = "rock"
+texture = ExtResource("4_i3m0d")
+0:0/0 = 0
+0:0/0/custom_data_0 = &"rock"
 
 [sub_resource type="TileSet" id="TileSet_ddpu7"]
 uv_clipping = true
@@ -32,11 +142,14 @@ occlusion_layer_3/light_mask = 1
 occlusion_layer_4/light_mask = 1
 physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 3
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "Terrain 0"
+terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 custom_data_layer_0/name = "type"
 custom_data_layer_0/type = 21
 sources/0 = SubResource("TileSetAtlasSource_i3m0d")
-sources/1 = SubResource("TileSetAtlasSource_p5lnq")
 sources/2 = SubResource("TileSetAtlasSource_ddpu7")
+sources/3 = SubResource("TileSetAtlasSource_exfrf")
 
 [node name="Tiles" type="TileMapLayer"]
 tile_set = SubResource("TileSet_ddpu7")

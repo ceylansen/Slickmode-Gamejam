@@ -32,14 +32,19 @@ func push(dir: Vector2i):
 	if is_moving:
 		return false
 
-	var target_tile := tile_pos + dir
-	var other = get_rock_at(target_tile)
+	var next_tile := tile_pos + dir
+	var other = get_rock_at(next_tile)
+	var finish = get_finish_at(next_tile)
 
+		
 	if other:
+		move_to_tile(next_tile)
 		merge_with(other)
-		move_to_tile(target_tile)
 		return true
 
+	if finish:
+		move_to_tile(next_tile)
+		finish.check_finish(value)
 
 	if not can_move(dir):
 		return false
@@ -57,27 +62,45 @@ func slide(dir: Vector2i):
 	var next_tile := tile_pos + dir
 	var surface := get_tile_type(next_tile)
 	var other = get_rock_at(next_tile)
+	var finish = get_finish_at(next_tile)
 	if other:
-		merge_with(other)
 		move_to_tile(next_tile)
+		merge_with(other)
 		return
-
+	
+	if finish:
+		move_to_tile(next_tile)
+		finish.check_finish(value)
+		
 	if surface == "ice":
 		if not can_move(dir):
 			return
 		move_to_tile(next_tile)
 		slide(dir)
+	elif surface == "floor":
+		move_to_tile(next_tile)
 
 func merge_with(other):
 	value = min(value + other.value, 9)
-	other.queue_free()
+	other.merged(value)
+	queue_free()
 	update_sprite()
 
+func merged(val):
+	value = val
+	update_sprite()
+	
 
 func get_rock_at(tile: Vector2i):
 	for rock in get_tree().get_nodes_in_group("rocks"):
 		if rock.tile_pos == tile:
 			return rock
+	return null
+
+func get_finish_at(tile: Vector2i):
+	for finish in get_tree().get_nodes_in_group("finish"):
+		if finish.tile_pos == tile:
+			finish.check_finish(value)
 	return null
 
 func move_to_tile(tile: Vector2i):
