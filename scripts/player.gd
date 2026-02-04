@@ -99,9 +99,9 @@ func try_move(dir: Vector2i):
 
 	var rock = get_rock_at(next_tile)
 	if rock:
+		play_push_animation(dir)
 		if rock.push(dir, push_mode):
 			consumed_dir = dir
-			play_push_animation(dir)
 		return
 
 	if is_blocked(next_tile):
