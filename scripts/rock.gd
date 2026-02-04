@@ -3,6 +3,8 @@ extends Node2D
 @export var tiles: TileMapLayer
 @export var slide_on_ice := false
 @export var move_time := 0.1
+@export var value := 1
+
 
 var tile_pos: Vector2i
 var is_moving := false
@@ -22,9 +24,22 @@ func can_move(dir: Vector2i) -> bool:
 	return surface != "rock" and surface != "void" and surface != "wall"
 
 
+func update_sprite():
+	$Sprite2D.frame = value - 1
+
+
 func push(dir: Vector2i):
 	if is_moving:
 		return false
+
+	var target_tile := tile_pos + dir
+	var other = get_rock_at(target_tile)
+
+	if other:
+		merge_with(other)
+		move_to_tile(target_tile)
+		return true
+
 
 	if not can_move(dir):
 		return false
@@ -41,6 +56,11 @@ func slide(dir: Vector2i):
 
 	var next_tile := tile_pos + dir
 	var surface := get_tile_type(next_tile)
+	var other = get_rock_at(next_tile)
+	if other:
+		merge_with(other)
+		move_to_tile(next_tile)
+		return
 
 	if surface == "ice":
 		if not can_move(dir):
@@ -48,7 +68,17 @@ func slide(dir: Vector2i):
 		move_to_tile(next_tile)
 		slide(dir)
 
+func merge_with(other):
+	value = min(value + other.value, 9)
+	other.queue_free()
+	update_sprite()
 
+
+func get_rock_at(tile: Vector2i):
+	for rock in get_tree().get_nodes_in_group("rocks"):
+		if rock.tile_pos == tile:
+			return rock
+	return null
 
 func move_to_tile(tile: Vector2i):
 	is_moving = true

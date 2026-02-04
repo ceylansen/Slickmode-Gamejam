@@ -10,6 +10,8 @@ var is_moving := false
 var is_sliding := false
 var slide_dir := Vector2i.ZERO
 var input_dir := Vector2i.ZERO
+var consumed_dir := Vector2i.ZERO
+
 
 var current_surface := "floor"
 
@@ -18,7 +20,7 @@ func _ready():
 	curr_pos = tiles.local_to_map(global_position)
 	global_position = tiles.map_to_local(curr_pos)
 
-func _physics_process(_delta):
+func _physics_process(_delta) -> void:
 	if is_moving:
 		return
 
@@ -28,20 +30,36 @@ func _physics_process(_delta):
 		continue_slide()
 		return
 
-	if input_dir != Vector2i.ZERO:
-		try_move(input_dir)
+	if input_dir == Vector2i.ZERO:
+		return
+
+	if input_dir == consumed_dir:
+		return
+
+	try_move(input_dir)
+
+
 
 func update_input_dir():
-	input_dir = Vector2i.ZERO
+	var new_dir := Vector2i.ZERO
 
 	if Input.is_action_pressed("left"):
-		input_dir = Vector2i.LEFT
+		new_dir = Vector2i.LEFT
+		$AnimatedSprite2D.frame = 3
 	elif Input.is_action_pressed("right"):
-		input_dir = Vector2i.RIGHT
+		new_dir = Vector2i.RIGHT
+		$AnimatedSprite2D.frame = 2
 	elif Input.is_action_pressed("up"):
-		input_dir = Vector2i.UP
+		new_dir = Vector2i.UP
+		$AnimatedSprite2D.frame = 1
 	elif Input.is_action_pressed("down"):
-		input_dir = Vector2i.DOWN
+		new_dir = Vector2i.DOWN
+		$AnimatedSprite2D.frame = 0
+
+	if new_dir != input_dir:
+		consumed_dir = Vector2i.ZERO
+	input_dir = new_dir
+
 
 func try_move(dir: Vector2i):
 	var next_tile := curr_pos + dir
@@ -49,8 +67,10 @@ func try_move(dir: Vector2i):
 	var rock = get_rock_at(next_tile)
 	if rock:
 		if rock.push(dir):
-			move_to_tile(next_tile)
+			consumed_dir = dir
 		return
+
+
 
 	if is_blocked(next_tile):
 		return
