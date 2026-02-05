@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=4 uid="uid://8t0v316xmwsk"]
+
+[ext_resource type="PackedScene" uid="uid://dxy336yc75ll" path="res://scenes/background.tscn" id="1_gtuic"]
+[ext_resource type="PackedScene" uid="uid://beq0traj2cmpb" path="res://scenes/tiles.tscn" id="2_4hkvw"]
+[ext_resource type="PackedScene" uid="uid://di5b8yd5oufvg" path="res://scenes/camera_2d.tscn" id="3_4hkvw"]
+[ext_resource type="PackedScene" uid="uid://xso6ww0ryoj2" path="res://scenes/player.tscn" id="3_8xqld"]
+[ext_resource type="PackedScene" uid="uid://dtiql3o6poyue" path="res://scenes/finish.tscn" id="4_q1k55"]
+[ext_resource type="PackedScene" uid="uid://dbwaqtr4b7kn" path="res://scenes/push_altar.tscn" id="5_gpjcc"]
+[ext_resource type="PackedScene" uid="uid://4nh072vwyj27" path="res://scenes/rock.tscn" id="7_8xqld"]
+
+[node name="4" type="Node2D"]
+
+[node name="Background" parent="." instance=ExtResource("1_gtuic")]
+
+[node name="Tiles2" parent="." instance=ExtResource("2_4hkvw")]
+tile_map_data = PackedByteArray("AAABAAUAAgABAAEAAAABAAMAAgABAAAAAAABAAQAAgAAAAMAAAACAAMAAgACAAMAAAACAAUAAgADAAIAAAA=")
+
+[node name="Tiles" parent="." instance=ExtResource("2_4hkvw")]
+tile_map_data = PackedByteArray("AAADAAUAAgADAAIAAAADAAQAAgAAAAAAAAACAAUAAwAAAAAAAAACAAQAAgAAAAAAAAACAAMAAwAAAAAAAAABAAUAAwAAAAAAAAABAAQAAwAAAAAAAAABAAMAAwAAAAAAAAALAAUAAAAAAAAAAAALAAYAAAAAAAAAAAALAAcAAAAAAAAAAAALAAgAAAAAAAAAAAALAAkAAAAAAAAAAAALAAoAAAAAAAAAAAAMAAUAAAAAAAAAAAAMAAYAAAAAAAAAAAAMAAcAAAAAAAAAAAAMAAgAAAAAAAAAAAAMAAkAAAAAAAAAAAAMAAoAAAAAAAAAAAANAAUAAAAAAAAAAAANAAYAAAAAAAAAAAANAAcAAAAAAAAAAAANAAgAAAAAAAAAAAANAAkAAAAAAAAAAAANAAoAAAAAAAAAAAAOAAUAAAAAAAAAAAAOAAYAAAAAAAAAAAAOAAcAAAAAAAAAAAAOAAgAAAAAAAAAAAAOAAkAAAAAAAAAAAAOAAoAAAAAAAAAAAAPAAUAAAAAAAAAAAAPAAYAAAAAAAAAAAAPAAcAAAAAAAAAAAAPAAgAAAAAAAAAAAAPAAkAAAAAAAAAAAAPAAoAAAAAAAAAAAAQAAUAAAAAAAAAAAAQAAYAAAAAAAAAAAAQAAcAAAAAAAAAAAAQAAgAAAAAAAAAAAAQAAkAAAAAAAAAAAAQAAoAAAAAAAAAAAARAAUAAAAAAAAAAAARAAYAAAAAAAAAAAARAAcAAAAAAAAAAAARAAgAAAAAAAAAAAARAAkAAAAAAAAAAAARAAoAAAAAAAAAAAASAAUAAAAAAAAAAAASAAYAAAAAAAAAAAASAAcAAAAAAAAAAAASAAgAAAAAAAAAAAASAAkAAAAAAAAAAAASAAoAAAAAAAAAAAATAAUAAAAAAAAAAAATAAYAAAAAAAAAAAATAAcAAAAAAAAAAAATAAgAAAAAAAAAAAATAAkAAAAAAAAAAAAJAAgAAAAAAAAAAAAJAAkAAAAAAAAAAAAKAAgAAAAAAAAAAAAKAAkAAAAAAAAAAAAJAAcAAAAAAAAAAAAKAAcAAAAAAAAAAAAJAAUAAAAAAAAAAAAJAAYAAAAAAAAAAAAKAAUAAAAAAAAAAAAKAAYAAAAAAAAAAAALAAQAAAAAAAAAAAAMAAQAAAAAAAAAAAANAAQAAAAAAAAAAAAOAAQAAAAAAAAAAAAPAAQAAAAAAAAAAAAQAAQAAAAAAAAAAAARAAQAAAAAAAAAAAASAAQAAAAAAAAAAAANAAMAAAAAAAAAAAAOAAMAAAAAAAAAAAAPAAMAAAAAAAAAAAAQAAMAAAAAAAAAAAARAAMAAAAAAAAAAAANAAsAAAAAAAAAAAAOAAsAAAAAAAAAAAAPAAsAAAAAAAAAAAAQAAsAAAAAAAAAAAARAAsAAAAAAAAAAAAIAAYAAAAAAAAAAAAIAAcAAAAAAAAAAAAIAAgAAAAAAAAAAAAUAAcAAAAAAAAAAAAUAAgAAAAAAAAAAAADAAMAAgACAAAAAAAEAAUAAgABAAIAAAAEAAQAAgACAAMAAAAEAAYAAgAEAAIAAAAKAAQAAAAAAAAAAAAMAAMAAAAAAAAAAAAIAAUAAAAAAAAAAAA=")
+
+[node name="Camera2D" parent="." instance=ExtResource("3_4hkvw")]
+
+[node name="Player" parent="." node_paths=PackedStringArray("tiles") instance=ExtResource("3_8xqld")]
+position = Vector2(39, 71)
+tiles = NodePath("../Tiles")
+
+[node name="Finish" parent="." node_paths=PackedStringArray("tiles") instance=ExtResource("4_q1k55")]
+position = Vector2(327, 135)
+tiles = NodePath("../Tiles")
+value = 2
+
+[node name="PushAltar" parent="." node_paths=PackedStringArray("tiles", "player") instance=ExtResource("5_gpjcc")]
+position = Vector2(70, 106)
+tiles = NodePath("../Tiles")
+player = NodePath("../Player")
+
+[node name="Rock" parent="." node_paths=PackedStringArray("tiles") instance=ExtResource("7_8xqld")]
+position = Vector2(135, 104)
+tiles = NodePath("../Tiles")
+
+[node name="Rock3" parent="." node_paths=PackedStringArray("tiles") instance=ExtResource("7_8xqld")]
+position = Vector2(278, 183)
+tiles = NodePath("../Tiles")

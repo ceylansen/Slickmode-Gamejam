@@ -2,8 +2,8 @@ extends Camera2D
 
 @export var float_radius := 4.0
 @export var float_speed := 0.4
-@export var push_offset := 12.0
-@export var push_return_speed := 8.0
+@export var push_offset := 8.0
+@export var push_return_speed := 6.0
 @export var float_quant := 0.25
 
 var t := 0.0
