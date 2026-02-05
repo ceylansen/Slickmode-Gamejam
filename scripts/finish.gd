@@ -8,6 +8,9 @@ var tile_pos: Vector2i
 
 
 func _ready() -> void:
+	call_deferred("_init_tiles")
+
+func _init_tiles():
 	tiles = get_tree().get_first_node_in_group("tiles")
 	tile_pos = tiles.local_to_map(global_position)
 	global_position = tiles.map_to_local(tile_pos)

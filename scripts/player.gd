@@ -18,10 +18,13 @@ var current_surface := "floor"
 
 
 func _ready():
-	print(get_tree().get_nodes_in_group("tiles"))
+	call_deferred("_init_tiles")
+
+func _init_tiles():
 	tiles = get_tree().get_first_node_in_group("tiles")
 	curr_pos = tiles.local_to_map(global_position)
 	global_position = tiles.map_to_local(curr_pos)
+
 
 func _physics_process(_delta) -> void:
 	if is_moving:
@@ -111,6 +114,8 @@ func try_move(dir: Vector2i):
 		play_push_animation(dir)
 		if rock.push(dir, push_mode):
 			consumed_dir = dir
+		else:
+			camera_shake()
 		return
 
 	if is_blocked(next_tile):
@@ -120,6 +125,21 @@ func try_move(dir: Vector2i):
 	
 	if get_tile_type(next_tile) == "ice":
 		start_slide(dir)
+
+func camera_shake(intensity := 0.2, time := 0.01):
+	var t = create_tween()
+	for i in range(4):
+		t.tween_property(
+			get_parent().get_node("Camera2D"),
+			"offset",
+			Vector2(
+				randf_range(-intensity, intensity),
+				randf_range(-intensity, intensity)
+			),
+			time / 4
+		)
+	t.tween_property(get_parent().get_node("Camera2D"), "offset", Vector2.ZERO, 0.05)
+
 
 func push_all_rocks(dir: Vector2i):
 	if push_cooldown:
