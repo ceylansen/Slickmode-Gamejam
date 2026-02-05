@@ -4,7 +4,6 @@ extends Node2D
 @export var slide_on_ice := false
 @export var move_time := 0.1
 @export var value := 1
-@export var merge_particles: PackedScene
 var active := true
 
 
@@ -96,10 +95,6 @@ func merge_with(other):
 	value = min(value + other.value, 9)
 	other.merged(value)
 	active = false
-	if merge_particles:
-		var p = merge_particles.instantiate()
-		p.global_position = global_position
-		get_tree().current_scene.add_child(p)
 
 	hide()
 	tile_pos = Vector2i(-1000, -1000)

@@ -1,7 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://4nh072vwyj27"]
+[gd_scene load_steps=13 format=3 uid="uid://4nh072vwyj27"]
 
 [ext_resource type="Script" uid="uid://bo402jamp8hok" path="res://scripts/rock.gd" id="1_1di36"]
-[ext_resource type="PackedScene" uid="uid://b8adbexpqtf1j" path="res://scenes/cpu_particles_2d.tscn" id="2_ik6fu"]
 [ext_resource type="Texture2D" uid="uid://da6vt32evqqhf" path="res://sprites/rock2-sheet.png" id="2_mek2u"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ik6fu"]
@@ -79,7 +78,6 @@ animations = [{
 z_index = 4
 script = ExtResource("1_1di36")
 slide_on_ice = true
-merge_particles = ExtResource("2_ik6fu")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_pdvy2")
