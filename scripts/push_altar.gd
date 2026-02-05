@@ -10,14 +10,12 @@ var shown := false
 
 
 func _ready() -> void:
-	call_deferred("_init_tiles")
-
-func _init_tiles():
 	player = get_tree().get_first_node_in_group("player")
 	tiles = get_tree().get_first_node_in_group("tiles")
 	$Interact.hide()
 	tile_pos = tiles.local_to_map(global_position)
 	global_position = tiles.map_to_local(tile_pos)
+
 
 
 

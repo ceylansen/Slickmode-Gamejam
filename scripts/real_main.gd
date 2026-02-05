@@ -13,6 +13,9 @@ var current_level_index := 0
 var current_level: Node = null
 var movestates : Node = null
 
+func _ready() -> void:
+	load_level(current_level_index)
+
 func load_level(index: int):
 	Gamestate.clear_undo()
 	if current_level:

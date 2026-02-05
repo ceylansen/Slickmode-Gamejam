@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@onready var tiles: TileMapLayer
+@onready var tiles: TileMapLayer = get_tree().get_first_node_in_group("tiles")
 @export var move_time := 0.2
 @export var floor_move_time := 0.15
 @export var ice_move_time := 0.1
@@ -18,12 +18,9 @@ var current_surface := "floor"
 
 
 func _ready():
-	call_deferred("_init_tiles")
-
-func _init_tiles():
-	tiles = get_tree().get_first_node_in_group("tiles")
 	curr_pos = tiles.local_to_map(global_position)
 	global_position = tiles.map_to_local(curr_pos)
+
 
 
 func _physics_process(_delta) -> void:
@@ -44,6 +41,7 @@ func _physics_process(_delta) -> void:
 
 	if push_mode:
 		push_all_rocks(input_dir)
+		
 		consumed_dir = input_dir
 	else:
 		try_move(input_dir)
@@ -51,6 +49,7 @@ func _physics_process(_delta) -> void:
 func _input(event):
 	if event.is_action_pressed("undo"):
 		undo()
+		
 
 
 func update_input_dir():
@@ -115,7 +114,7 @@ func try_move(dir: Vector2i):
 		if rock.push(dir, push_mode):
 			consumed_dir = dir
 		else:
-			camera_shake()
+			get_parent().get_node("Camera2D").camera_shake()
 		return
 
 	if is_blocked(next_tile):
@@ -126,28 +125,17 @@ func try_move(dir: Vector2i):
 	if get_tile_type(next_tile) == "ice":
 		start_slide(dir)
 
-func camera_shake(intensity := 0.2, time := 0.01):
-	var t = create_tween()
-	for i in range(4):
-		t.tween_property(
-			get_parent().get_node("Camera2D"),
-			"offset",
-			Vector2(
-				randf_range(-intensity, intensity),
-				randf_range(-intensity, intensity)
-			),
-			time / 4
-		)
-	t.tween_property(get_parent().get_node("Camera2D"), "offset", Vector2.ZERO, 0.05)
-
 
 func push_all_rocks(dir: Vector2i):
 	if push_cooldown:
 		return
 
+	get_parent().get_node("Camera2D").nudge_camera(dir)
+
 	push_cooldown = true
 	await get_tree().create_timer(0.15).timeout
 	push_cooldown = false
+	get_parent().get_node("Camera2D").reset_camera()
 
 	var rocks = get_tree().get_nodes_in_group("rocks")
 

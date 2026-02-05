@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://b8adbexpqtf1j"]
+
+[node name="CPUParticles2D" type="CPUParticles2D"]
+amount = 12
+lifetime = 0.4
+gravity = Vector2(0, 80)
+initial_velocity_min = 30.93
+initial_velocity_max = 72.17
+radial_accel_max = 100.0
+scale_amount_min = 4.0
+scale_amount_max = 4.0

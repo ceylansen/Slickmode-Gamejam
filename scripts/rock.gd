@@ -4,6 +4,7 @@ extends Node2D
 @export var slide_on_ice := false
 @export var move_time := 0.1
 @export var value := 1
+@export var merge_particles: PackedScene
 var active := true
 
 
@@ -12,13 +13,12 @@ var tile_pos: Vector2i
 var is_moving := false
 
 func _ready():
-	call_deferred("_init_tiles")
-
-func _init_tiles():
 	tiles = get_tree().get_first_node_in_group("tiles")
 	tile_pos = tiles.local_to_map(global_position)
 	global_position = tiles.map_to_local(tile_pos)
 	add_to_group("rocks")
+
+
 
 
 
@@ -96,10 +96,16 @@ func merge_with(other):
 	value = min(value + other.value, 9)
 	other.merged(value)
 	active = false
+	if merge_particles:
+		var p = merge_particles.instantiate()
+		p.global_position = global_position
+		get_tree().current_scene.add_child(p)
+
 	hide()
 	tile_pos = Vector2i(-1000, -1000)
 	global_position = Vector2(-1000, -1000)
-	camera_shake()
+	
+	get_parent().get_node("Camera2D").camera_shake()
 
 	update_sprite()
 
@@ -137,17 +143,3 @@ func get_tile_type(tile: Vector2i) -> String:
 	if tile_data == null:
 		return "void"
 	return tile_data.get_custom_data("type")
-
-func camera_shake(intensity := 0.2, time := 0.01):
-	var t = create_tween()
-	for i in range(4):
-		t.tween_property(
-			get_parent().get_node("Camera2D"),
-			"offset",
-			Vector2(
-				randf_range(-intensity, intensity),
-				randf_range(-intensity, intensity)
-			),
-			time / 4
-		)
-	t.tween_property(get_parent().get_node("Camera2D"), "offset", Vector2.ZERO, 0.05)

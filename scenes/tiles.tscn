@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://beq0traj2cmpb"]
+[gd_scene load_steps=8 format=3 uid="uid://beq0traj2cmpb"]
 
 [ext_resource type="Texture2D" uid="uid://w46gj5ioco1o" path="res://sprites/ice.png" id="1_od8sr"]
 [ext_resource type="Texture2D" uid="uid://dsugaae4mqss0" path="res://sprites/floor.png" id="3_jhpg2"]
 [ext_resource type="Texture2D" uid="uid://tb2arisx0opv" path="res://sprites/rockver2.png" id="4_i3m0d"]
-[ext_resource type="Script" uid="uid://c72bnd4begr1o" path="res://scripts/tiles.gd" id="4_p5lnq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i3m0d"]
 resource_name = "ice"
@@ -154,4 +153,3 @@ sources/3 = SubResource("TileSetAtlasSource_exfrf")
 
 [node name="Tiles" type="TileMapLayer"]
 tile_set = SubResource("TileSet_ddpu7")
-script = ExtResource("4_p5lnq")
