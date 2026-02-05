@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cybpvwrovbuwd"]
+[gd_scene load_steps=7 format=3 uid="uid://cybpvwrovbuwd"]
 
 [ext_resource type="Script" uid="uid://qan8hxnt3l06" path="res://scripts/real_main.gd" id="1_yun4n"]
 [ext_resource type="AudioStream" uid="uid://bm4qtt5qrp05r" path="res://sounds/Classicals.de - Debussy - Arabesque No. 1, L. 66 - Arranged for Music Box.mp3" id="2_dgrbo"]
 [ext_resource type="AudioStream" uid="uid://w6d4fh6bawug" path="res://sounds/powerUp (2).wav" id="3_erbfj"]
 [ext_resource type="AudioStream" uid="uid://vjh214rdamck" path="res://sounds/hitHurt (1).wav" id="4_8nffb"]
-[ext_resource type="AudioStream" uid="uid://byk8v4a63smqv" path="res://sounds/hitHurt (4).wav" id="5_qyqhh"]
+[ext_resource type="AudioStream" path="res://sounds/Audio/footstep_snow_004.ogg" id="5_qyqhh"]
+[ext_resource type="AudioStream" path="res://sounds/Audio/impactBell_heavy_003.ogg" id="6_n0ckv"]
 
 [node name="RealMain" type="Node2D" groups=["main"]]
 script = ExtResource("1_yun4n")
@@ -27,4 +28,8 @@ pitch_scale = 0.65
 
 [node name="Snowwalk" type="AudioStreamPlayer" parent="." groups=["snowwalk"]]
 stream = ExtResource("5_qyqhh")
-volume_db = -15.0
+volume_db = -35.0
+
+[node name="Merged" type="AudioStreamPlayer" parent="." groups=["merged"]]
+stream = ExtResource("6_n0ckv")
+volume_db = -20.0

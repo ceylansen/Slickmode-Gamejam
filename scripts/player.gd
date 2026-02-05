@@ -205,8 +205,11 @@ func move_to_tile(tile: Vector2i):
 	current_surface = get_tile_type(tile)
 	
 	if current_surface == "floor":
-		if (randi() % 2) == 1:
-			get_tree().get_first_node_in_group("snowwalk").play()
+		#if (randi() % 2) == 1:
+		
+		var snow = get_tree().get_first_node_in_group("snowwalk")
+		if !snow.is_playing():
+			snow.play()
 		play_walk()
 
 	var target_pos := tiles.map_to_local(tile)
