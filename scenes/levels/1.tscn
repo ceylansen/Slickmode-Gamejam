@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://mkedpnb653c6"]
+[gd_scene load_steps=7 format=4 uid="uid://mkedpnb653c6"]
 
 [ext_resource type="PackedScene" uid="uid://dxy336yc75ll" path="res://scenes/background.tscn" id="1_le1x0"]
 [ext_resource type="PackedScene" uid="uid://beq0traj2cmpb" path="res://scenes/tiles.tscn" id="2_x3ltn"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://xso6ww0ryoj2" path="res://scenes/player.tscn" id="3_x3ltn"]
 [ext_resource type="PackedScene" uid="uid://dtiql3o6poyue" path="res://scenes/finish.tscn" id="4_f00r8"]
 [ext_resource type="PackedScene" uid="uid://4nh072vwyj27" path="res://scenes/rock.tscn" id="5_0absb"]
-[ext_resource type="PackedScene" uid="uid://dbwaqtr4b7kn" path="res://scenes/push_altar.tscn" id="7_kpjit"]
 
 [node name="1" type="Node2D"]
 
@@ -31,8 +30,3 @@ tiles = NodePath("../Tiles")
 [node name="Rock" parent="." node_paths=PackedStringArray("tiles") instance=ExtResource("5_0absb")]
 position = Vector2(200, 140)
 tiles = NodePath("../Tiles")
-
-[node name="PushAltar" parent="." node_paths=PackedStringArray("tiles", "player") instance=ExtResource("7_kpjit")]
-position = Vector2(132, 157)
-tiles = NodePath("../Tiles")
-player = NodePath("../Player")

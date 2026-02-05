@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://cybpvwrovbuwd"]
+[gd_scene load_steps=6 format=3 uid="uid://cybpvwrovbuwd"]
 
 [ext_resource type="Script" uid="uid://qan8hxnt3l06" path="res://scripts/real_main.gd" id="1_yun4n"]
+[ext_resource type="AudioStream" uid="uid://bm4qtt5qrp05r" path="res://sounds/Classicals.de - Debussy - Arabesque No. 1, L. 66 - Arranged for Music Box.mp3" id="2_dgrbo"]
+[ext_resource type="AudioStream" uid="uid://w6d4fh6bawug" path="res://sounds/powerUp (2).wav" id="3_erbfj"]
+[ext_resource type="AudioStream" uid="uid://vjh214rdamck" path="res://sounds/hitHurt (1).wav" id="4_8nffb"]
+[ext_resource type="AudioStream" uid="uid://byk8v4a63smqv" path="res://sounds/hitHurt (4).wav" id="5_qyqhh"]
 
 [node name="RealMain" type="Node2D" groups=["main"]]
 script = ExtResource("1_yun4n")
@@ -8,3 +12,19 @@ script = ExtResource("1_yun4n")
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="Levels" type="Node2D" parent="."]
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_dgrbo")
+volume_db = -10.0
+
+[node name="Undo" type="AudioStreamPlayer" parent="." groups=["undo"]]
+stream = ExtResource("3_erbfj")
+
+[node name="Blocked" type="AudioStreamPlayer" parent="." groups=["blocked"]]
+stream = ExtResource("4_8nffb")
+volume_db = -45.0
+pitch_scale = 0.65
+
+[node name="Snowwalk" type="AudioStreamPlayer" parent="." groups=["snowwalk"]]
+stream = ExtResource("5_qyqhh")
+volume_db = -15.0

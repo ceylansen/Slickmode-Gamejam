@@ -1,12 +1,20 @@
 extends Node2D
 
 @onready var Levels = $Levels
+@onready var Music = $Music
 
 
 var levels := [
 	"res://scenes/levels/1.tscn",
 	"res://scenes/levels/2.tscn",
-	"res://scenes/levels/3.tscn"
+	"res://scenes/levels/3.tscn",
+	"res://scenes/levels/4.tscn",
+	"res://scenes/levels/5.tscn",
+	"res://scenes/levels/6.tscn",
+	"res://scenes/levels/7.tscn",
+	"res://scenes/levels/8.tscn",
+	"res://scenes/levels/9.tscn",
+	"res://scenes/levels/10.tscn",
 ]
 
 var current_level_index := 0
@@ -19,6 +27,8 @@ func _input(event: InputEvent) -> void:
 
 func _ready() -> void:
 	load_level(current_level_index)
+	Music.play()
+	
 
 func load_level(index: int):
 	Gamestate.clear_undo()

@@ -104,8 +104,6 @@ func force_idle():
 
 func try_move(dir: Vector2i):
 	var next_tile := curr_pos + dir
-	if can_record_snapshot():
-		record_snapshot()
 
 
 	var rock = get_rock_at(next_tile)
@@ -115,11 +113,16 @@ func try_move(dir: Vector2i):
 			consumed_dir = dir
 		else:
 			get_parent().get_node("Camera2D").camera_shake()
+			var blocked = get_tree().get_first_node_in_group("blocked")
+			if !blocked.is_playing():
+				blocked.play()
 		return
 
 	if is_blocked(next_tile):
 		return
-
+	
+	if can_record_snapshot():
+		record_snapshot()
 	move_to_tile(next_tile)
 	
 	if get_tile_type(next_tile) == "ice":
@@ -195,13 +198,15 @@ func stop_slide():
 	is_sliding = false
 	slide_dir = Vector2i.ZERO
 
+var i = 0
 func move_to_tile(tile: Vector2i):
 	is_moving = true
 	curr_pos = tile
-
 	current_surface = get_tile_type(tile)
 	
 	if current_surface == "floor":
+		if (randi() % 2) == 1:
+			get_tree().get_first_node_in_group("snowwalk").play()
 		play_walk()
 
 	var target_pos := tiles.map_to_local(tile)
@@ -264,11 +269,14 @@ func can_record_snapshot() -> bool:
 func undo():
 	if is_sliding or is_moving:
 		return
-
+	
 	var snap = Gamestate.pop_snapshot()
 	if snap == null:
 		return
-
+	
+	var Undo = get_tree().get_first_node_in_group("undo")
+	Undo.play()
+	
 	is_moving = false
 	is_sliding = false
 	slide_dir = Vector2i.ZERO

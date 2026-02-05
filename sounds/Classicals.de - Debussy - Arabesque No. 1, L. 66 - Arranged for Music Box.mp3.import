@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bm4qtt5qrp05r"
+path="res://.godot/imported/Classicals.de - Debussy - Arabesque No. 1, L. 66 - Arranged for Music Box.mp3-1610903a34409a4e9d31d2adccc8b87f.mp3str"
+
+[deps]
+
+source_file="res://sounds/Classicals.de - Debussy - Arabesque No. 1, L. 66 - Arranged for Music Box.mp3"
+dest_files=["res://.godot/imported/Classicals.de - Debussy - Arabesque No. 1, L. 66 - Arranged for Music Box.mp3-1610903a34409a4e9d31d2adccc8b87f.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

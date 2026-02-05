@@ -1,0 +1,18 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ckqiuenscsccr"
+valid=false
+
+[deps]
+
+source_file="res://sounds/__MACOSX/._Classicals.de - Debussy - Arabesque No. 1, L. 66 - Arranged for Music Box.mp3"
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

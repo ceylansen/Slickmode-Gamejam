@@ -104,7 +104,6 @@ func merge_with(other):
 
 func merged(val):
 	value = val
-	get_parent().get_node("Camera2D").camera_shake(0.2, 0.2)
 	update_sprite()
 	
 
