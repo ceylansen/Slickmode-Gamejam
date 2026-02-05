@@ -13,6 +13,10 @@ var current_level_index := 0
 var current_level: Node = null
 var movestates : Node = null
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("reset"):
+		reset_level()
+
 func _ready() -> void:
 	load_level(current_level_index)
 

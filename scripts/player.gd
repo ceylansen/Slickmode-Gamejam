@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@onready var tiles: TileMapLayer = get_tree().get_first_node_in_group("tiles")
+@export var tiles: TileMapLayer
 @export var move_time := 0.2
 @export var floor_move_time := 0.15
 @export var ice_move_time := 0.1

@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var tiles: TileMapLayer
+@export var tiles: TileMapLayer
 @export var slide_on_ice := false
 @export var move_time := 0.1
 @export var value := 1
@@ -12,7 +12,6 @@ var tile_pos: Vector2i
 var is_moving := false
 
 func _ready():
-	tiles = get_tree().get_first_node_in_group("tiles")
 	tile_pos = tiles.local_to_map(global_position)
 	global_position = tiles.map_to_local(tile_pos)
 	add_to_group("rocks")
@@ -100,13 +99,12 @@ func merge_with(other):
 	tile_pos = Vector2i(-1000, -1000)
 	global_position = Vector2(-1000, -1000)
 	
-	get_parent().get_node("Camera2D").camera_shake()
-
 	update_sprite()
 
 
 func merged(val):
 	value = val
+	get_parent().get_node("Camera2D").camera_shake(0.2, 0.2)
 	update_sprite()
 	
 

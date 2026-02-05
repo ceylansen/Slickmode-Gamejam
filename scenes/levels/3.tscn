@@ -1,0 +1,21 @@
+[gd_scene load_steps=6 format=3 uid="uid://b0wtusmfqk5k"]
+
+[ext_resource type="PackedScene" uid="uid://dxy336yc75ll" path="res://scenes/background.tscn" id="1_cddsv"]
+[ext_resource type="PackedScene" uid="uid://beq0traj2cmpb" path="res://scenes/tiles.tscn" id="2_sc0rx"]
+[ext_resource type="PackedScene" uid="uid://di5b8yd5oufvg" path="res://scenes/camera_2d.tscn" id="3_2n3hm"]
+[ext_resource type="PackedScene" uid="uid://xso6ww0ryoj2" path="res://scenes/player.tscn" id="4_s5tjy"]
+[ext_resource type="PackedScene" uid="uid://dtiql3o6poyue" path="res://scenes/finish.tscn" id="5_si25r"]
+
+[node name="3" type="Node2D"]
+
+[node name="Background" parent="." instance=ExtResource("1_cddsv")]
+
+[node name="Tiles2" parent="." instance=ExtResource("2_sc0rx")]
+
+[node name="Tiles" parent="." instance=ExtResource("2_sc0rx")]
+
+[node name="Camera2D" parent="." instance=ExtResource("3_2n3hm")]
+
+[node name="Player" parent="." instance=ExtResource("4_s5tjy")]
+
+[node name="Finish" parent="." instance=ExtResource("5_si25r")]

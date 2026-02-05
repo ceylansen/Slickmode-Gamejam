@@ -1,7 +1,7 @@
 extends Area2D
 
-@onready var tiles: TileMapLayer
-@onready var player : CharacterBody2D
+@export var tiles: TileMapLayer
+@export var player : CharacterBody2D
 var tile_pos: Vector2i
 
 var inrange := false
@@ -10,8 +10,7 @@ var shown := false
 
 
 func _ready() -> void:
-	player = get_tree().get_first_node_in_group("player")
-	tiles = get_tree().get_first_node_in_group("tiles")
+
 	$Interact.hide()
 	tile_pos = tiles.local_to_map(global_position)
 	global_position = tiles.map_to_local(tile_pos)
