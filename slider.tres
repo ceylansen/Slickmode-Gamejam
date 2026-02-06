@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://molyxp2cj1l0"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_m7x51"]
+color = Color(0.23370573, 0.54866564, 0.63622934, 1)
+thickness = 5
+
+[resource]
+HSlider/icons/grabber = null
+HSlider/styles/slider = SubResource("StyleBoxLine_m7x51")

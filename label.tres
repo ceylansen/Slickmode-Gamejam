@@ -3,6 +3,8 @@
 [ext_resource type="FontFile" uid="uid://d0x0orqtxlyhp" path="res://fonts/Silkscreen-Regular.ttf" id="1_elqs5"]
 
 [resource]
+Button/constants/outline_size = 8
+Button/fonts/font = ExtResource("1_elqs5")
 Label/colors/font_color = Color(1, 1, 1, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/constants/line_spacing = 3

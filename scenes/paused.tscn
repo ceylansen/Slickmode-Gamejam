@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://u4y3qi2c3bpr"]
+[gd_scene load_steps=4 format=3 uid="uid://u4y3qi2c3bpr"]
 
 [ext_resource type="Script" uid="uid://c007pp386nydb" path="res://scripts/paused.gd" id="1_f4kqd"]
 [ext_resource type="Theme" uid="uid://djauf8qef4p1x" path="res://label.tres" id="1_r8o1p"]
+[ext_resource type="Theme" uid="uid://molyxp2cj1l0" path="res://slider.tres" id="3_1qn1x"]
 
 [node name="Paused" type="Control"]
 layout_mode = 3
@@ -36,6 +37,7 @@ grow_vertical = 2
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 theme = ExtResource("1_r8o1p")
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 24
@@ -53,10 +55,16 @@ theme_override_font_sizes/font_size = 16
 text = "Music"
 
 [node name="HSlider" type="HSlider" parent="VBoxContainer/Music"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+theme = ExtResource("3_1qn1x")
+max_value = 1.0
+step = 0.005
+value = 1.0
 
 [node name="SFX" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 8
 
 [node name="Label" type="Label" parent="VBoxContainer/SFX"]
 layout_mode = 2
@@ -66,7 +74,12 @@ theme_override_font_sizes/font_size = 16
 text = "SFX"
 
 [node name="HSlider" type="HSlider" parent="VBoxContainer/SFX"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+theme = ExtResource("3_1qn1x")
+max_value = 1.0
+step = 0.005
+value = 1.0
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 1
@@ -91,4 +104,7 @@ layout_mode = 2
 theme = ExtResource("1_r8o1p")
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 16
-text = "Movem"
+text = "Movement/Push: WASD/arrow keys
+Reset level: T
+interact: space
+pause: escape"

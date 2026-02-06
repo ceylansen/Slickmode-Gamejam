@@ -1,4 +1,9 @@
-[gd_scene format=3 uid="uid://xm77cm5qf2v3"]
+[gd_scene load_steps=5 format=3 uid="uid://xm77cm5qf2v3"]
+
+[ext_resource type="Script" uid="uid://dytiec8x1ijqg" path="res://scripts/start_menu.gd" id="1_m7x51"]
+[ext_resource type="PackedScene" uid="uid://dxy336yc75ll" path="res://scenes/background.tscn" id="1_ouf4f"]
+[ext_resource type="Theme" uid="uid://djauf8qef4p1x" path="res://label.tres" id="2_thu50"]
+[ext_resource type="Theme" uid="uid://molyxp2cj1l0" path="res://slider.tres" id="4_h61rw"]
 
 [node name="StartMenu" type="Control"]
 layout_mode = 3
@@ -7,3 +12,102 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_m7x51")
+
+[node name="Background" parent="." instance=ExtResource("1_ouf4f")]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.5
+offset_top = -40.5
+offset_right = 52.5
+offset_bottom = 40.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_thu50")
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 24
+text = "Start game"
+
+[node name="Music" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Label" type="Label" parent="VBoxContainer/Music"]
+layout_mode = 2
+theme = ExtResource("2_thu50")
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 16
+text = "Music"
+
+[node name="Musicslider" type="HSlider" parent="VBoxContainer/Music"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme = ExtResource("4_h61rw")
+max_value = 1.0
+step = 0.005
+value = 1.0
+
+[node name="SFX" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Label" type="Label" parent="VBoxContainer/SFX"]
+layout_mode = 2
+theme = ExtResource("2_thu50")
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 16
+text = "SFX"
+
+[node name="SFXslider" type="HSlider" parent="VBoxContainer/SFX"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("4_h61rw")
+max_value = 1.0
+step = 0.005
+value = 1.0
+
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_thu50")
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 24
+text = "Controls:"
+
+[node name="Label2" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_thu50")
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 16
+text = "Movement/Push: WASD/arrow keys
+Reset level: T
+interact: space
+pause: escape"
+
+[connection signal="pressed" from="VBoxContainer/Label" to="." method="_on_label_pressed"]
+[connection signal="drag_ended" from="VBoxContainer/Music/Musicslider" to="." method="_on_musicslider_drag_ended"]
+[connection signal="drag_ended" from="VBoxContainer/SFX/SFXslider" to="." method="_on_sf_xslider_drag_ended"]
