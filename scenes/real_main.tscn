@@ -16,8 +16,9 @@ script = ExtResource("1_yun4n")
 [node name="Levels" type="Node2D" parent="."]
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 stream = ExtResource("2_dgrbo")
-volume_db = -17.0
+volume_db = -10.0
 bus = &"Music"
 
 [node name="Blocked" type="AudioStreamPlayer" parent="." groups=["blocked"]]

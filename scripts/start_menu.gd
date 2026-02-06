@@ -13,12 +13,12 @@ func _ready() -> void:
 
 func _on_sf_xslider_drag_ended(value_changed: bool) -> void:
 		if value_changed:
-			AudioServer.set_bus_volume_linear(0, %Musicslider.value)
+			AudioServer.set_bus_volume_linear(2, %SFXslider.value)
 
 
 func _on_musicslider_drag_ended(value_changed: bool) -> void:
 		if value_changed:
-			AudioServer.set_bus_volume_linear(0, %Musicslider.value)
+			AudioServer.set_bus_volume_linear(1, %Musicslider.value)
 
 
 func _on_label_pressed() -> void:

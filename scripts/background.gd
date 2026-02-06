@@ -1,4 +1,5 @@
 extends Node2D
+@export var maxpositive := 500
 
 
 func _ready():
@@ -6,8 +7,8 @@ func _ready():
 		var star := Sprite2D.new()
 		star.texture = preload("res://sprites/star.png")
 		star.position = Vector2(
-			randf_range(-200, 500),
-			randf_range(-200, 500)
+			randf_range(-200, maxpositive),
+			randf_range(-200, maxpositive)
 		)
 		star.modulate.a = randf_range(0.3, 0.8)
 		add_child(star)

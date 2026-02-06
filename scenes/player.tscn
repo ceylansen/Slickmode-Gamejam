@@ -1,7 +1,8 @@
-[gd_scene load_steps=31 format=3 uid="uid://xso6ww0ryoj2"]
+[gd_scene load_steps=32 format=3 uid="uid://xso6ww0ryoj2"]
 
 [ext_resource type="Script" uid="uid://bvi0n4787kkg7" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://dd8qfvk2tmsas" path="res://sprites/mainguy-sheet.png" id="2_g2els"]
+[ext_resource type="PackedScene" uid="uid://u4y3qi2c3bpr" path="res://scenes/paused.tscn" id="3_qhqgy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qhqgy"]
 atlas = ExtResource("2_g2els")
@@ -266,3 +267,8 @@ animation = &"up"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_g2els")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Paused" parent="CanvasLayer" instance=ExtResource("3_qhqgy")]
+visible = false

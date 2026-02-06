@@ -5,6 +5,7 @@
 [ext_resource type="Theme" uid="uid://molyxp2cj1l0" path="res://slider.tres" id="3_1qn1x"]
 
 [node name="Paused" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,13 +36,12 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="Continue" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
 theme = ExtResource("1_r8o1p")
-theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 24
-text = "Paused"
+text = "Continue"
 
 [node name="Music" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -54,7 +54,8 @@ theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 16
 text = "Music"
 
-[node name="HSlider" type="HSlider" parent="VBoxContainer/Music"]
+[node name="Musicslider" type="HSlider" parent="VBoxContainer/Music"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme = ExtResource("3_1qn1x")
@@ -73,7 +74,8 @@ theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 16
 text = "SFX"
 
-[node name="HSlider" type="HSlider" parent="VBoxContainer/SFX"]
+[node name="SFXslider" type="HSlider" parent="VBoxContainer/SFX"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme = ExtResource("3_1qn1x")
@@ -92,13 +94,6 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Label" type="Label" parent="Control/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("1_r8o1p")
-theme_override_constants/outline_size = 8
-theme_override_font_sizes/font_size = 24
-text = "Controls:"
-
 [node name="Label2" type="Label" parent="Control/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("1_r8o1p")
@@ -106,5 +101,8 @@ theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 16
 text = "Movement/Push: WASD/arrow keys
 Reset level: T
-interact: space
-pause: escape"
+interact: space"
+
+[connection signal="pressed" from="VBoxContainer/Continue" to="." method="_on_continue_pressed"]
+[connection signal="drag_ended" from="VBoxContainer/Music/Musicslider" to="." method="_on_musicslider_drag_ended"]
+[connection signal="drag_ended" from="VBoxContainer/SFX/SFXslider" to="." method="_on_sf_xslider_drag_ended"]

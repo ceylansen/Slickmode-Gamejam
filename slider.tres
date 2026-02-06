@@ -1,9 +1,15 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://molyxp2cj1l0"]
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://molyxp2cj1l0"]
 
-[sub_resource type="StyleBoxLine" id="StyleBoxLine_m7x51"]
-color = Color(0.23370573, 0.54866564, 0.63622934, 1)
-thickness = 5
+[ext_resource type="Texture2D" uid="uid://t2h6ayelmfj1" path="res://sprites/grab.png" id="1_p1m3c"]
+[ext_resource type="Texture2D" uid="uid://cvo8hfiv3h6gj" path="res://sprites/line.png" id="1_smgft"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p1m3c"]
+texture = ExtResource("1_smgft")
+texture_margin_top = 4.0
 
 [resource]
-HSlider/icons/grabber = null
-HSlider/styles/slider = SubResource("StyleBoxLine_m7x51")
+HSlider/icons/grabber = ExtResource("1_p1m3c")
+HSlider/icons/grabber_disabled = ExtResource("1_p1m3c")
+HSlider/icons/grabber_highlight = ExtResource("1_p1m3c")
+HSlider/icons/tick = ExtResource("1_p1m3c")
+HSlider/styles/slider = SubResource("StyleBoxTexture_p1m3c")
