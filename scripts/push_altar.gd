@@ -22,10 +22,12 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
 		if inrange:
 			if !activated:
+				$On.play()
 				player.set_push_mode(true)
 				$Interact.hide()
 				activated = true
 			else:
+				$Off.play()
 				player.set_push_mode(false)
 				$Interact.show()
 				activated = false

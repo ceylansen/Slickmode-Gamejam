@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://qan8hxnt3l06" path="res://scripts/real_main.gd" id="1_yun4n"]
 [ext_resource type="AudioStream" uid="uid://bm4qtt5qrp05r" path="res://sounds/Classicals.de - Debussy - Arabesque No. 1, L. 66 - Arranged for Music Box.mp3" id="2_dgrbo"]
-[ext_resource type="AudioStream" uid="uid://w6d4fh6bawug" path="res://sounds/powerUp (2).wav" id="3_erbfj"]
 [ext_resource type="AudioStream" uid="uid://vjh214rdamck" path="res://sounds/hitHurt (1).wav" id="4_8nffb"]
 [ext_resource type="AudioStream" uid="uid://badpt60cggta7" path="res://sounds/footstep_snow_004.ogg" id="5_n0ckv"]
 [ext_resource type="AudioStream" uid="uid://dyxi6wkl7pmey" path="res://sounds/impactBell_heavy_003.ogg" id="6_i7fva"]
 [ext_resource type="AudioStream" uid="uid://5v6wokcjjjad" path="res://sounds/impactBell_heavy_000.ogg" id="7_i7fva"]
+[ext_resource type="AudioStream" uid="uid://byk8v4a63smqv" path="res://sounds/hitHurt (4).wav" id="8_cxjvn"]
 
 [node name="RealMain" type="Node2D" groups=["main"]]
 script = ExtResource("1_yun4n")
@@ -17,24 +17,32 @@ script = ExtResource("1_yun4n")
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_dgrbo")
-volume_db = -10.0
-
-[node name="Undo" type="AudioStreamPlayer" parent="." groups=["undo"]]
-stream = ExtResource("3_erbfj")
+volume_db = -17.0
+bus = &"Music"
 
 [node name="Blocked" type="AudioStreamPlayer" parent="." groups=["blocked"]]
 stream = ExtResource("4_8nffb")
 volume_db = -45.0
 pitch_scale = 0.65
+bus = &"SFX"
 
 [node name="Snowwalk" type="AudioStreamPlayer" parent="." groups=["snowwalk"]]
 stream = ExtResource("5_n0ckv")
-volume_db = -35.0
+volume_db = -40.0
+bus = &"SFX"
 
 [node name="Merged" type="AudioStreamPlayer" parent="." groups=["merged"]]
 stream = ExtResource("6_i7fva")
-volume_db = -20.0
+volume_db = -25.0
+bus = &"SFX"
 
 [node name="FinishLevel" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_i7fva")
-volume_db = -15.0
+volume_db = -20.0
+bus = &"SFX"
+
+[node name="Pusher" type="AudioStreamPlayer" parent="." groups=["Pusher"]]
+stream = ExtResource("8_cxjvn")
+volume_db = -10.0
+pitch_scale = 0.6
+bus = &"SFX"

@@ -17,9 +17,6 @@ func _ready():
 	add_to_group("rocks")
 
 
-
-
-
 func can_move(dir: Vector2i) -> bool:
 	if !active:
 		return false
@@ -40,16 +37,16 @@ func push(dir: Vector2i, mode: bool):
 		return false
 
 	var next_tile := tile_pos + dir
-	var other = get_rock_at(next_tile)
+	var rock = get_rock_at(next_tile)
 	var finish = get_finish_at(next_tile)
 	if mode:
 		move_time = 0.05
 	else:
 		move_time = 0.1
 
-	if other:
+	if rock:
 		move_to_tile(next_tile)
-		merge_with(other)
+		merge_with(rock)
 		return true
 
 	if finish:
@@ -71,16 +68,13 @@ func slide(dir: Vector2i):
 
 	var next_tile := tile_pos + dir
 	var surface := get_tile_type(next_tile)
-	var other = get_rock_at(next_tile)
-	var finish = get_finish_at(next_tile)
-	if other:
+	var rock = get_rock_at(next_tile)
+	get_finish_at(next_tile)
+	if rock:
 		move_to_tile(next_tile)
-		merge_with(other)
+		merge_with(rock)
 		return
-	
-	if finish:
-		move_to_tile(next_tile)
-		finish.check_finish(value)
+
 		
 	if surface == "ice":
 		if not can_move(dir):
@@ -94,7 +88,6 @@ func merge_with(other):
 	value = min(value + other.value, 9)
 	other.merged(value)
 	active = false
-
 	hide()
 	tile_pos = Vector2i(-1000, -1000)
 	global_position = Vector2(-1000, -1000)

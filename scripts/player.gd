@@ -46,11 +46,6 @@ func _physics_process(_delta) -> void:
 	else:
 		try_move(input_dir)
 
-func _input(event):
-	if event.is_action_pressed("undo"):
-		undo()
-		
-
 
 func update_input_dir():
 	var new_dir := Vector2i.ZERO
@@ -105,11 +100,14 @@ func force_idle():
 func try_move(dir: Vector2i):
 	var next_tile := curr_pos + dir
 
-
 	var rock = get_rock_at(next_tile)
 	if rock:
 		play_push_animation(dir)
 		if rock.push(dir, push_mode):
+			var pusher = get_tree().get_first_node_in_group("Pusher")
+			if pusher:
+				if !pusher.is_playing():
+					pusher.play()
 			consumed_dir = dir
 		else:
 			get_parent().get_node("Camera2D").camera_shake()
@@ -122,8 +120,6 @@ func try_move(dir: Vector2i):
 	if is_blocked(next_tile):
 		return
 	
-	if can_record_snapshot():
-		record_snapshot()
 	move_to_tile(next_tile)
 	
 	if get_tile_type(next_tile) == "ice":
@@ -154,8 +150,10 @@ func push_all_rocks(dir: Vector2i):
 			pushed_any = true
 
 	if pushed_any:
-		if can_record_snapshot():
-			record_snapshot()
+		var pusher = get_tree().get_first_node_in_group("Pusher")
+		if pusher:
+			if !pusher.is_playing():
+				pusher.play()
 		play_push_animation(dir)
 
 
@@ -181,8 +179,6 @@ func start_slide(dir: Vector2i):
 	facing_dir = dir
 	play_walk()
 
-
-
 func continue_slide():
 	var next_tile := curr_pos + slide_dir
 
@@ -199,15 +195,12 @@ func stop_slide():
 	is_sliding = false
 	slide_dir = Vector2i.ZERO
 
-var i = 0
 func move_to_tile(tile: Vector2i):
 	is_moving = true
 	curr_pos = tile
 	current_surface = get_tile_type(tile)
 	
 	if current_surface == "floor":
-		#if (randi() % 2) == 1:
-		
 		var snow = get_tree().get_first_node_in_group("snowwalk")
 		if snow:
 			if !snow.is_playing():
@@ -247,59 +240,3 @@ func get_tile_type(tile_pos: Vector2i) -> String:
 	if tile_data == null:
 		return "void"
 	return tile_data.get_custom_data("type")
-
-func record_snapshot():
-	var snap = {
-		"player_pos": curr_pos,
-		"push_mode": push_mode,
-		"facing_dir": facing_dir,
-		"rocks": []
-	}
-
-	for rock in get_tree().get_nodes_in_group("rocks"):
-		snap.rocks.append({
-			"id": rock.get_instance_id(),
-			"pos": rock.tile_pos,
-			"value": rock.value,
-			"active": rock.active
-		})
-
-	Gamestate.push_snapshot(snap)
-
-
-func can_record_snapshot() -> bool:
-	return not is_sliding and not is_moving
-
-
-func undo():
-	if is_sliding or is_moving:
-		return
-	
-	var snap = Gamestate.pop_snapshot()
-	if snap == null:
-		return
-	
-	var Undo = get_tree().get_first_node_in_group("undo")
-	if Undo:
-		Undo.play()
-	
-	is_moving = false
-	is_sliding = false
-	slide_dir = Vector2i.ZERO
-	push_cooldown = false
-
-	curr_pos = snap.player_pos
-	global_position = tiles.map_to_local(curr_pos)
-	push_mode = snap.push_mode
-	facing_dir = snap.facing_dir
-	default_facing()
-
-	for data in snap.rocks:
-		var rock = instance_from_id(data.id)
-		if rock:
-			rock.tile_pos = data.pos
-			rock.global_position = tiles.map_to_local(data.pos)
-			rock.value = data.value
-			rock.active = data.active
-			rock.show()
-			rock.update_sprite()

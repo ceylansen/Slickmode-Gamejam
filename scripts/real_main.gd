@@ -32,7 +32,6 @@ func _ready() -> void:
 	
 
 func load_level(index: int):
-	Gamestate.clear_undo()
 	if current_level:
 		current_level.queue_free()
 	

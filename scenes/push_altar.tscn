@@ -1,19 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://dbwaqtr4b7kn"]
+[gd_scene load_steps=7 format=3 uid="uid://dbwaqtr4b7kn"]
 
 [ext_resource type="Texture2D" uid="uid://dl7gnsrnonhdd" path="res://sprites/movealtar.png" id="1_golti"]
 [ext_resource type="Script" uid="uid://b7wfanrmi3tkd" path="res://scripts/push_altar.gd" id="1_rvk84"]
-[ext_resource type="FontFile" uid="uid://d0x0orqtxlyhp" path="res://fonts/Silkscreen-Regular.ttf" id="3_v1m77"]
+[ext_resource type="Theme" uid="uid://djauf8qef4p1x" path="res://label.tres" id="3_hcg4h"]
+[ext_resource type="AudioStream" uid="uid://bnbnjw38i2hbq" path="res://sounds/impactBell_heavy_002.ogg" id="4_hcg4h"]
+[ext_resource type="AudioStream" uid="uid://cvgiywxk8edx6" path="res://sounds/reversii.ogg" id="5_hcg4h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_golti"]
 size = Vector2(8, 8)
-
-[sub_resource type="Theme" id="Theme_0kue1"]
-Label/colors/font_color = Color(1, 1, 1, 1)
-Label/colors/font_outline_color = Color(0, 0, 0, 1)
-Label/constants/line_spacing = 3
-Label/constants/outline_size = 4
-Label/font_sizes/font_size = 8
-Label/fonts/font = ExtResource("3_v1m77")
 
 [node name="PushAltar" type="Area2D"]
 z_index = 2
@@ -31,8 +25,19 @@ offset_left = -19.0
 offset_top = -24.0
 offset_right = 42.0
 offset_bottom = -1.0
-theme = SubResource("Theme_0kue1")
+theme = ExtResource("3_hcg4h")
 text = "Interact?"
+
+[node name="On" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_hcg4h")
+volume_db = -20.0
+bus = &"SFX"
+
+[node name="Off" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_hcg4h")
+volume_db = -20.0
+pitch_scale = 0.9
+bus = &"SFX"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

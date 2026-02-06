@@ -1,0 +1,11 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://djauf8qef4p1x"]
+
+[ext_resource type="FontFile" uid="uid://d0x0orqtxlyhp" path="res://fonts/Silkscreen-Regular.ttf" id="1_elqs5"]
+
+[resource]
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/line_spacing = 3
+Label/constants/outline_size = 4
+Label/font_sizes/font_size = 8
+Label/fonts/font = ExtResource("1_elqs5")

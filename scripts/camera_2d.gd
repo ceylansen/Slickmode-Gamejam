@@ -32,8 +32,6 @@ func _process(delta):
 	offset = float_offset + push_current + shake_offset
 
 
-
-
 func nudge_camera(dir: Vector2i):
 	push_target = Vector2(dir) * push_offset
 
