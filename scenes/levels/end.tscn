@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://biypyo3h6202u"]
+
+[ext_resource type="PackedScene" uid="uid://dxy336yc75ll" path="res://scenes/background.tscn" id="1_5bcbc"]
+[ext_resource type="Theme" uid="uid://djauf8qef4p1x" path="res://label.tres" id="2_fb5ls"]
+
+[node name="end" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" parent="." instance=ExtResource("1_5bcbc")]
+position = Vector2(-588, -372)
+maxpositive = 1000
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_fb5ls")
+theme_override_colors/font_color = Color(0.654902, 0.88235295, 0.9882353, 1)
+theme_override_font_sizes/font_size = 48
+text = "Thank you for playing!!!"
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_fb5ls")
+theme_override_colors/font_color = Color(0.4, 0.12156863, 0.6, 1)
+theme_override_font_sizes/font_size = 24
+text = "Made by ceylansen.itch.io"
+
+[node name="Camera2D" type="Camera2D" parent="."]
