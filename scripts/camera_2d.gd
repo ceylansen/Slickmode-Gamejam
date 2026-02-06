@@ -14,7 +14,7 @@ var push_current := Vector2.ZERO
 var shake_offset := Vector2.ZERO
 
 func _process(delta):
-	t = fmod(t + delta * float_speed, TAU)
+	t += delta * float_speed
 
 	var float_offset := Vector2(
 		cos(t),
@@ -55,13 +55,3 @@ func camera_shake(intensity := 0.2, time := 0.2):
 		)
 
 	tw.tween_property(self, "shake_offset", Vector2.ZERO, 0.05)
-
-
-#func nudge_camera(dir: Vector2i):
-	#var shift_offset := Vector2(dir) * 4
-	#var t := create_tween()
-	#t.tween_property(self, "offset", shift_offset, 0.1)
-#
-#func reset_camera():
-	#var t := create_tween()
-	#t.tween_property(self, "offset", Vector2.ZERO, 0.15)

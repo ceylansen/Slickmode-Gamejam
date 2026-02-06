@@ -114,8 +114,9 @@ func try_move(dir: Vector2i):
 		else:
 			get_parent().get_node("Camera2D").camera_shake()
 			var blocked = get_tree().get_first_node_in_group("blocked")
-			if !blocked.is_playing():
-				blocked.play()
+			if blocked:
+				if !blocked.is_playing():
+					blocked.play()
 		return
 
 	if is_blocked(next_tile):
@@ -208,8 +209,9 @@ func move_to_tile(tile: Vector2i):
 		#if (randi() % 2) == 1:
 		
 		var snow = get_tree().get_first_node_in_group("snowwalk")
-		if !snow.is_playing():
-			snow.play()
+		if snow:
+			if !snow.is_playing():
+				snow.play()
 		play_walk()
 
 	var target_pos := tiles.map_to_local(tile)
@@ -278,7 +280,8 @@ func undo():
 		return
 	
 	var Undo = get_tree().get_first_node_in_group("undo")
-	Undo.play()
+	if Undo:
+		Undo.play()
 	
 	is_moving = false
 	is_sliding = false

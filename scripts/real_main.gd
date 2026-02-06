@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var Levels = $Levels
 @onready var Music = $Music
+@onready var FinishSound = $FinishLevel
 
 
 var levels := [
@@ -40,6 +41,8 @@ func load_level(index: int):
 	Levels.add_child(current_level)
 
 func on_level_completed():
+	FinishSound.play()
+	await FinishSound.finished
 	load_level(current_level_index + 1)
 	
 	

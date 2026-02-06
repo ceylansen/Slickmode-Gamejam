@@ -104,7 +104,9 @@ func merge_with(other):
 
 func merged(val):
 	value = val
-	get_tree().get_first_node_in_group("merged").play()
+	var merging = get_tree().get_first_node_in_group("merged")
+	if merging:
+		merging.play()
 	update_sprite()
 	
 

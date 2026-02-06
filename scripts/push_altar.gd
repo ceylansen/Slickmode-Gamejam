@@ -27,7 +27,7 @@ func _input(event: InputEvent) -> void:
 				activated = true
 			else:
 				player.set_push_mode(false)
-				#$Interact.show()
+				$Interact.show()
 				activated = false
 				
 

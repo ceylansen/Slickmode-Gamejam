@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://cybpvwrovbuwd"]
+[gd_scene load_steps=8 format=3 uid="uid://cybpvwrovbuwd"]
 
 [ext_resource type="Script" uid="uid://qan8hxnt3l06" path="res://scripts/real_main.gd" id="1_yun4n"]
 [ext_resource type="AudioStream" uid="uid://bm4qtt5qrp05r" path="res://sounds/Classicals.de - Debussy - Arabesque No. 1, L. 66 - Arranged for Music Box.mp3" id="2_dgrbo"]
 [ext_resource type="AudioStream" uid="uid://w6d4fh6bawug" path="res://sounds/powerUp (2).wav" id="3_erbfj"]
 [ext_resource type="AudioStream" uid="uid://vjh214rdamck" path="res://sounds/hitHurt (1).wav" id="4_8nffb"]
-[ext_resource type="AudioStream" path="res://sounds/Audio/footstep_snow_004.ogg" id="5_qyqhh"]
-[ext_resource type="AudioStream" path="res://sounds/Audio/impactBell_heavy_003.ogg" id="6_n0ckv"]
+[ext_resource type="AudioStream" uid="uid://badpt60cggta7" path="res://sounds/footstep_snow_004.ogg" id="5_n0ckv"]
+[ext_resource type="AudioStream" uid="uid://dyxi6wkl7pmey" path="res://sounds/impactBell_heavy_003.ogg" id="6_i7fva"]
+[ext_resource type="AudioStream" uid="uid://5v6wokcjjjad" path="res://sounds/impactBell_heavy_000.ogg" id="7_i7fva"]
 
 [node name="RealMain" type="Node2D" groups=["main"]]
 script = ExtResource("1_yun4n")
@@ -27,9 +28,13 @@ volume_db = -45.0
 pitch_scale = 0.65
 
 [node name="Snowwalk" type="AudioStreamPlayer" parent="." groups=["snowwalk"]]
-stream = ExtResource("5_qyqhh")
+stream = ExtResource("5_n0ckv")
 volume_db = -35.0
 
 [node name="Merged" type="AudioStreamPlayer" parent="." groups=["merged"]]
-stream = ExtResource("6_n0ckv")
+stream = ExtResource("6_i7fva")
 volume_db = -20.0
+
+[node name="FinishLevel" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_i7fva")
+volume_db = -15.0
