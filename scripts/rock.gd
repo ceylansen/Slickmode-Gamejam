@@ -38,7 +38,7 @@ func push(dir: Vector2i, mode: bool):
 
 	var next_tile := tile_pos + dir
 	var rock = get_rock_at(next_tile)
-	var finish = get_finish_at(next_tile)
+	get_finish_at(next_tile)
 	if mode:
 		move_time = 0.05
 	else:
@@ -49,9 +49,6 @@ func push(dir: Vector2i, mode: bool):
 		merge_with(rock)
 		return true
 
-	if finish:
-		move_to_tile(next_tile)
-		finish.check_finish(value)
 
 	if not can_move(dir):
 		return false
@@ -75,7 +72,6 @@ func slide(dir: Vector2i):
 		merge_with(rock)
 		return
 
-		
 	if surface == "ice":
 		if not can_move(dir):
 			return
@@ -101,6 +97,7 @@ func merged(val):
 	if merging:
 		merging.play()
 	update_sprite()
+	get_finish_at(tile_pos)
 	
 
 func get_rock_at(tile: Vector2i):

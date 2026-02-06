@@ -37,5 +37,5 @@ position = Vector2(230, 39)
 tiles = NodePath("../Tiles")
 
 [node name="Rock3" parent="." node_paths=PackedStringArray("tiles") instance=ExtResource("7_4wvgs")]
-position = Vector2(218, 87)
+position = Vector2(218, 88)
 tiles = NodePath("../Tiles")
