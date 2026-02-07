@@ -17,7 +17,6 @@ var levels := [
 	"res://scenes/levels/9.tscn",
 	"res://scenes/levels/10.tscn",
 	"res://scenes/levels/11.tscn",
-	"res://scenes/levels/12.tscn",
 	"res://scenes/levels/end.tscn"
 ]
 

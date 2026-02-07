@@ -146,6 +146,9 @@ func push_all_rocks(dir: Vector2i):
 	var pushed_any := false
 
 	for rock in rocks:
+		if rock.is_sliding:
+			return
+	for rock in rocks:
 		if rock.push(dir, push_mode):
 			pushed_any = true
 

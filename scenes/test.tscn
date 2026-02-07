@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://bwvtbiq4wjwxd"]
+
+[ext_resource type="PackedScene" uid="uid://dxy336yc75ll" path="res://scenes/background.tscn" id="1_j5jx5"]
+[ext_resource type="PackedScene" uid="uid://beq0traj2cmpb" path="res://scenes/tiles.tscn" id="2_lpvoh"]
+[ext_resource type="PackedScene" uid="uid://di5b8yd5oufvg" path="res://scenes/camera_2d.tscn" id="3_at5dv"]
+[ext_resource type="PackedScene" uid="uid://xso6ww0ryoj2" path="res://scenes/player.tscn" id="4_jcd4p"]
+[ext_resource type="PackedScene" uid="uid://dtiql3o6poyue" path="res://scenes/finish.tscn" id="5_uacia"]
+[ext_resource type="PackedScene" uid="uid://4nh072vwyj27" path="res://scenes/rock.tscn" id="6_lpvoh"]
+
+[node name="test" type="Node2D"]
+
+[node name="Background" parent="." instance=ExtResource("1_j5jx5")]
+
+[node name="Tiles2" parent="." instance=ExtResource("2_lpvoh")]
+
+[node name="Tiles" parent="." instance=ExtResource("2_lpvoh")]
+tile_map_data = PackedByteArray(0, 0, 15, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 0, 7, 0, 2, 0, 1, 0, 2, 0, 0, 0)
+
+[node name="Camera2D" parent="." instance=ExtResource("3_at5dv")]
+
+[node name="Player" parent="." node_paths=PackedStringArray("tiles") instance=ExtResource("4_jcd4p")]
+position = Vector2(200, 117)
+tiles = NodePath("../Tiles")
+
+[node name="Finish" parent="." node_paths=PackedStringArray("tiles") instance=ExtResource("5_uacia")]
+position = Vector2(242, 120)
+tiles = NodePath("../Tiles")
+
+[node name="Rock" parent="." node_paths=PackedStringArray("tiles") instance=ExtResource("6_lpvoh")]
+position = Vector2(222, 120)
+tiles = NodePath("../Tiles")

@@ -15,7 +15,7 @@ grow_vertical = 2
 
 [node name="Background" parent="." instance=ExtResource("1_5bcbc")]
 position = Vector2(-588, -372)
-maxpositive = 1000
+maxpositive = 1200
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1

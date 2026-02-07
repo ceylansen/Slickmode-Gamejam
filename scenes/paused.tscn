@@ -100,7 +100,7 @@ theme = ExtResource("1_r8o1p")
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 16
 text = "Movement/Push: WASD/arrow keys
-Reset level: T
+Reset level: R
 interact: space"
 
 [connection signal="pressed" from="VBoxContainer/Continue" to="." method="_on_continue_pressed"]
